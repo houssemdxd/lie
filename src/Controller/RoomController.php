@@ -620,19 +620,35 @@ else {
                 ));
             }
     
+
+            //set the goal fo rthe first time (first round )
+            $firstround = (count($rounds) == 0 && count($timesInRoom) == 0);
+    
+            if ($firstround) {
+                $room->setGoal($goal);
+                $hubInterface->publish(new Update(
+                    "/".$room->getId()."/goalUpdate",
+                    json_encode(['goalUpdate' => $goal])
+                ));
+            }
+
+
             $time = new Time();
             $time->setLie(false);
             $time->setRoom($room);
             $time->setTimeround((new \DateTime())->modify('+10 seconds'));
             $em->persist($time);
             $em->flush();
+            $em->getConnection()->commit(); // Commit transaction
+
      // Count the number of cards on the table
+     $rounds=$roundRepository->findBy(["room"=>$room]);
      $cardCount = 0;
      foreach ($rounds as $round) {
          $cardCount += count($tableRepository->findBy(['round' => $round]));
      }
             // Send the put done update
-            $hubInterface->publish(new Update(
+          $update= new Update(
                 '/' . $room->getId() . '/putdone',
                 json_encode([
                     'update' => 'put done ' . date("h:i:sa"),
@@ -640,8 +656,8 @@ else {
                     'nextplayer' => $nextPlayer->getId(),
                     'cardnumber' => $cardCount
                 ])
-            ));
-    
+            );
+            $hubInterface->publish($update);
           
     
             // Send the table update
@@ -650,7 +666,6 @@ else {
                 json_encode(['cardnumber' => $cardCount])
             ));
 
-            $em->getConnection()->commit(); // Commit transaction
             return new JsonResponse(['status' => 'success'], Response::HTTP_OK);
     
         } catch (\Exception $e) {
@@ -979,7 +994,6 @@ $hubInterface->publish($update);
     );
 
         $hubInterface->publish($update);
-
 
 
 
