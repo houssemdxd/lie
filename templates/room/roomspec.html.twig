@@ -1,0 +1,70 @@
+
+
+<center>
+<button onclick=" createRoom(2)">2 players</button>
+
+<button onclick=" createRoom(3)">3 players</button>
+
+<button onclick=" createRoom(4)">4 players</button>
+
+</center>
+
+
+
+
+
+<script>
+
+
+function storePlayerInRoom(roomId, playerId) {
+    // Store the roomId as the key and the playerId as the value
+    localStorage.setItem(roomId, playerId);
+}
+
+
+ 
+
+// Function to create a room and store the response in local storage
+function createRoom(nb) {
+    alert("clicked")
+    fetch("/createRoom/"+nb, {
+        method: 'POST', // Assuming this is a POST request. Change it if it's a GET request.
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.id && data.player_token) {
+            // Store the room ID and player token in local storage
+           
+            storePlayerInRoom(data.id, data.player_token);
+
+            console.log('Room ID and Player Token stored successfully with the nnew created room.');
+
+            // Construct the URL using the stored data
+            var url = `/game/${data.id}/${data.player_token}`;
+
+            // Redirect the browser to the constructed URL
+            window.location.href = url;
+
+
+
+            
+        } else {
+            console.error('Response does not contain the expected fields.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Call the function to create the room
+
+
+
+
+
+
+</script>

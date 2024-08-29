@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>      
+    <div><button><a href="{{ path('app_romm_spesification')}}">Start new game</a></button>
+    </div>
+
+    <button  id="join-button" > Join Room </button>
+
+</body>
+<script>
+function storePlayerInRoom(roomId, playerId) {
+    // Store the roomId as the key and the playerId as the value
+    localStorage.setItem(roomId, playerId);
+}
+
+
+
+
+ function join() { 
+
+    var roomId= prompt("enter your room code");
+
+    var playerId = localStorage.getItem(roomId);
+// Construct the URL with roomId and playerId
+var url = `/join?roomId=${roomId}&playerId=${playerId}`;
+
+// Perform the fetch request with the constructed URL
+fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json()) // assuming the response is JSON
+    .then(data => {
+
+            if (data.playerId=="999x")
+            {
+                var url = `/realgame/${roomId}/${playerId}`;
+
+                window.location.href = url;
+
+
+
+                return 0;
+
+
+            }
+            if (data.roomId=="1x1x")
+            {
+                console.log("there is no room with that code");
+                return 0;
+            }
+
+
+ var url = `/game/${roomId}/${data.playerId}`;
+
+// Perform the fetch request with the constructed URL
+fetch(url, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+
+
+
+
+
+
+            
+
+
+
+        if (data.playerId && data.roomId) {
+            // Store playerId and roomId in local storage
+            storePlayerInRoom(data.roomId, data.playerId);
+
+            console.log('Player ID:', data.playerId);
+            console.log('Room ID:', data.roomId);
+        } else {
+            console.error('Failed to join the room.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+// Example of how to call the function with a roomId
+document.getElementById('join-button').addEventListener('click', function() {
+    join(); // Replace 123 with the actual roomId
+});
+
+
+
+ 
+
+// Function to create a room and store the response in local storage
+function createRoom() {
+    alert("clicked")
+    fetch('/createRoom', {
+        method: 'POST', // Assuming this is a POST request. Change it if it's a GET request.
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.id && data.player_token) {
+            // Store the room ID and player token in local storage
+           
+            storePlayerInRoom(data.id, data.player_token);
+
+            console.log('Room ID and Player Token stored successfully with the nnew created room.');
+
+            // Construct the URL using the stored data
+            var url = `/game/${data.id}/${data.player_token}`;
+
+            // Redirect the browser to the constructed URL
+            window.location.href = url;
+
+
+
+            
+        } else {
+            console.error('Response does not contain the expected fields.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Call the function to create the room
+
+
+
+
+
+</script>
+</html>

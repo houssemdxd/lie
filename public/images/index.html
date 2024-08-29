@@ -1,0 +1,241 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+.container-1
+{
+
+border: 1px solid black; 
+
+}
+.img-flex-box{
+    display:flex;
+    justify-content: space-around;;
+}
+.img-flex-box img:hover
+{
+box-shadow: 0px 20px 50px rebeccapurple;
+
+}
+.container{
+
+width:75%;
+
+
+
+
+}
+.text{
+   text-align: center;
+}
+.row1{
+    background-color: rgb(7, 63, 7);
+    width:100%;
+    height: 400px;
+    
+}
+.row .col
+{background-color: #023c1f;/* border: 5px solid white; */width:100%;height:100%;}
+.btn-raw{
+
+    background-color: rgb(7, 63, 7);
+    width:100%;
+    justify-content: center;
+
+}
+
+.btn-col{
+display: flex;
+justify-content: center;
+padding:10px;
+
+margin: 10px;
+}
+
+.btn{
+    margin-right: 15px;; 
+}
+.score{
+border: 1px solid black;
+height: 70px;
+justify-content: center;
+padding:5px;
+background-color: white;
+
+}
+
+.score-col{
+    border: 1px solid black; 
+    display: flex;
+    justify-content: center;  
+}
+.minecol
+{
+display: flex;
+justify-content: space-between;
+box-sizing: border-box;
+overflow: hidden;
+flex-wrap: wrap;
+
+}
+.buttom-color
+{
+
+    display: flex;
+justify-content: space-around;
+
+}
+
+.col-in-row
+{
+    margin: 15px;;
+    display: flex;
+    justify-content: right;
+}
+#change
+{
+text-decoration: solid;
+font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+}
+#title{
+    display: flex;
+text-align: center;
+justify-content:right;
+
+}
+#pink,#blue,#green
+ {
+     border-radius: 9px;
+ }
+ 
+ #card
+ {
+position: sticky;
+    width: 300px;
+    height:220px;
+    margin: 0px;
+ }
+ .postion
+ { margin-top: -80px;
+  
+ }
+ #ten2020
+ {width:100%;
+    display: flex;
+    
+    overflow-y: x;
+    justify-content: space-around;
+   
+ }
+#ten2020 img:hover
+{opacity: 2;
+    transform: translateY(10px);}
+    #blackjack
+    {display: block;
+        justify-content: center;
+
+    /* margin: auto; */margin-left: 300;margin-bottom: 10000px;}
+    .btn-15
+    {
+
+        border-radius:50%;
+    position: absolute;
+    margin-left: -10px;
+    background-color: #fba92c;
+    border: 6px solid #fba92c;
+    
+    text-decoration: aliceblue;
+    color: rgb(255, 240, 240);
+        font-size: large;
+        font: 1em sans-serif;
+        font-weight: bold;
+    }
+    #btn-design{
+        color: aliceblue;
+        font-size: large;
+        font: 1em sans-serif;
+        font-weight: bold;
+    }
+
+
+</style>
+</head>
+<body id ="demo">
+    
+
+<div class="row" id="#title">
+    <div class="col-4"><img src="My project (1).png " id="card">
+      </div>    
+
+ </div>
+
+    <div class="container postion">
+
+        
+        <div class="row text col-in-row">
+        <div class="col-4 buttom-color">
+
+            <h6 id="change">Change the background color:</h6>
+            <button type="button" class="btn btn-warning" id="pink" style="background-color:palevioletred;" onclick="pink()" >&nbsp&nbsp&nbsp&nbsp</button>
+            <button type="button" class="btn btn-primary" id="blue" onclick="blue()">&nbsp&nbsp&nbsp&nbsp</button>
+            <button type="button" class="btn btn-primary" id="green" style="background-color:green;" onclick="green()">&nbsp&nbsp&nbsp&nbsp</button>
+
+            
+        </div>
+        </div>
+        <div class="row row1 ">
+          <div class="col minecol" >
+          
+           <div class="row">
+            <div id ="blackjack"></div>
+</div>
+
+          </div>
+          <div class="col" id="header">
+            Column
+          </div>
+        
+        </div>
+        <div class="row btn-raw" >
+            <div class="col-3 btn-col">
+                <p id="false"></p>
+                <button type="button" class="btn btn-primary" onclick="vari()">Hit</button>
+                <button type="button" class="btn btn-warning">Stand</button>
+                <button type="button" class="btn btn-danger" onclick="reverse()">Deal</button>
+
+
+            </div>
+            
+            
+            <div>
+                <div class="row  " style="border:2px solid black;height:100px;"><div id="ten2020"></div></div>
+      </div>
+      <div class="row score"> 
+       <div class="col-3 score-col" >  
+    <table  style="width:100%"> 
+        <tr>
+            <th>Wins</th>
+            <th>Draws</th>
+            <th>Fails</th>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </table>
+          </div>
+        
+    
+        </div>
+    
+    </div>
+<script language="javascript" src="home.js">
+
+</script>
+</body>
+</html>
